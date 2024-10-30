@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request, jsonify
 import requests
+import os
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 
-API_KEY  = '517879b2-96f0-11ef-882e-0242ac130003-51787a16-96f0-11ef-882e-0242ac130003'
+API_KEY  = os.getenv('API_KEY')
 BASE_URL = 'https://api.openweathermap.org/data/2.5/forecast'
 
 def get_weather(city):
@@ -14,7 +16,7 @@ def get_weather(city):
     except requests.exceptions.HTTPError as err:
         print(f'Erro ao fazer sua busca: {err}')
         return None
-    
+
 @app.route('/')
 def index():
     return render_template('index.html')
